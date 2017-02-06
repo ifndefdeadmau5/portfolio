@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import firebase from 'firebase';
 
 export default class ChatRoom extends Component {
 
@@ -7,16 +8,34 @@ export default class ChatRoom extends Component {
     this.updateMessage = this.updateMessage.bind(this);
     this.submitMessage = this.submitMessage.bind(this);
     this.state = {
-      messages: [
-        { id: 0, text: 'first message' },
-        { id: 1, text: 'second message' },
-        { id: 2, text: 'third message' },
-      ],
+      messages: null,
     };
+
+    const config = {
+      apiKey: 'AIzaSyB4pOsn6qm1fdgkwaQEel1KDkZrlh_J_MY',
+      authDomain: 'trevorme-5b2c4.firebaseapp.com',
+      databaseURL: 'https://trevorme-5b2c4.firebaseio.com',
+      storageBucket: 'trevorme-5b2c4.appspot.com',
+      messagingSenderId: '759398557086',
+    };
+
+    firebase.initializeApp(config);
+  }
+
+  componentDidMount() {
+    firebase.database().ref('messages/').on('value', (snapshot) => {
+      const currentMessages = snapshot.val();
+      const list = Object.assign([], currentMessages);
+
+      if (currentMessages != null) {
+        this.setState({
+          messages: list,
+        });
+      }
+    });
   }
 
   updateMessage(event) {
-    console.log(`updateMessage ${event.target.value}`);
     this.setState({
       message: event.target.value,
     });
@@ -28,24 +47,17 @@ export default class ChatRoom extends Component {
       text: this.state.message,
     };
 
-    const list = Object.assign([], this.state.messages);
-
-    list.push(nextMessage);
-    this.setState({
-      messages: list,
-    });
+    firebase.database().ref(`messages/${nextMessage.id}`).set(nextMessage);
   }
 
   render() {
-    const currentMessages = this.state.messages.map(message =>
-      (
-        <li key={message.id}>{message.text}</li>
-      ),
-  );
     return (
       <div>
         <ol>
-          {currentMessages}
+          {this.state.messages && this.state.messages.map(message =>
+            (
+              <li key={message.id}>{message.text}</li>
+            ))}
         </ol>
         <input onChange={this.updateMessage} type="text" placeholder="Message" />
         <br />

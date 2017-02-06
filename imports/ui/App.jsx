@@ -1,5 +1,4 @@
 import React from 'react';
-import script from '../scripts/main';
 import ChatRoom from '../Component/ChatRoom';
 
 const style = {
@@ -22,7 +21,7 @@ export default function App() {
         <li>Software Engineer</li>
       </ul>
 
-      <ChatRoom></ChatRoom>
+      <ChatRoom />
     </div>
   );
 }
