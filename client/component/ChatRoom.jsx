@@ -1,5 +1,26 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
+import styled from 'styled-components';
+import Input from './Input';
+import Button from './Button';
+
+const ChatContainer = styled.div`
+  background: papayawhip;
+  align-text: center;
+`;
+
+const Message = styled.li`
+  font-size: 2em;
+`;
+
+const Container = styled.div`
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Ol = styled.ol`
+`;
 
 export default class ChatRoom extends Component {
 
@@ -30,7 +51,7 @@ export default class ChatRoom extends Component {
       if (currentMessages != null) {
         this.setState({
           messages: list,
-        }, () => console.log(this.state.messages));
+        });
       }
     });
   }
@@ -52,21 +73,25 @@ export default class ChatRoom extends Component {
 
   render() {
     return (
-      <div>
-        <ol>
-          {this.state.messages && this.state.messages.map(message =>
-            (
-              <li key={message.id}>{message.text}</li>
-            ))}
-        </ol>
-        <input
-          onKeyDown={(event) => {
-            if (event.keyCode === 13) {
-              this.submitMessage();
-            }
-          }} onChange={this.updateMessage} type="text" placeholder="Message" />
-        <button onClick={this.submitMessage}>Send</button>
-      </div>
+      <Container>
+        <ChatContainer>
+          <Ol>
+            {this.state.messages && this.state.messages.map(message =>
+              (
+                <Message key={message.id}>{message.text}</Message>
+              ))}
+          </Ol>
+          <div style={{ margin: 'auto', width: 400 }}>
+            <Input
+              onKeyDown={(event) => {
+                if (event.keyCode === 13) {
+                  this.submitMessage();
+                }
+              }} onChange={this.updateMessage} type="text" placeholder="Message"/>
+            <Button onClick={this.submitMessage}>Send</Button>
+          </div>
+        </ChatContainer>
+      </Container>
     );
   }
 }
