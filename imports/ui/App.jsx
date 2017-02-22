@@ -1,7 +1,7 @@
 import React from 'react';
-import styled, { keyframes, injectGlobal } from 'styled-components';
+import styled, { injectGlobal } from 'styled-components';
 import Navigation from './components/Navigation';
-import Chatroom from './components/ChatRoom';
+import Chatroom from './components/Chat/ChatRoom';
 
 injectGlobal`
     body {
