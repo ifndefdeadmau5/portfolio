@@ -1,7 +1,14 @@
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes, injectGlobal } from 'styled-components';
 import Navigation from './components/Navigation';
 import Chatroom from './components/ChatRoom';
+
+injectGlobal`
+    body {
+        margin: 0;
+        padding : 0;
+    }
+`;
 
 const Container = styled.div`
   display: flex;
