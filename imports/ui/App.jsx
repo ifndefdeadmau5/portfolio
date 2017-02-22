@@ -22,7 +22,6 @@ const Container = styled.div`
 
 const Page = styled.div`
   position: relative;
-  background-size: cover;
   width: 100%;
   height: 100vh;
 `;
@@ -67,7 +66,6 @@ export default function App() {
       </PageWithBackground>
       <Page id="contacts">
         <Wrapper>
-          <SubTitle>Type here</SubTitle>
           <Chatroom />
         </Wrapper>
       </Page>

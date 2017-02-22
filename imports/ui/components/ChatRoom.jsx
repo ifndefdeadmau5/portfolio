@@ -4,29 +4,40 @@ import styled, { keyframes } from 'styled-components';
 import Input from './Input';
 import Button from './Button';
 
-const ChatContainer = styled.div`
-  align-text: center;
-`;
-
-const fadeIn = keyframes`
-    {
-    0% {opacity: 0;}
-    100% {opacity: 1;}
-    }
-`
-
-const Message = styled.li`
-  font-size: 1em;
-  animation: ${fadeIn} 1s ease-in;
-`;
 
 const Container = styled.div`
-  align-content: center;
-  align-items: center;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 `;
 
-export default class ChatRoom extends Component {
+const ChatContainer = styled.div`
+  flex: 5;
+  overflow: scroll;
+  background: white;
+`;
 
+const Message = styled.li`
+  display: inline-block;
+  height: 20px;
+  padding: 4px;
+  list-style-type: none;
+  background-color: #44acff;
+  border-radius: 25px;
+  font-size: 1em;
+  color: white;
+  margin: 4px;
+`;
+
+
+const InputWrapper = styled.div`
+  display: flex;
+  flex: 1;
+  align-content: stretch;
+`
+
+export default class ChatRoom extends Component {
   constructor(props) {
     super(props);
     this.updateMessage = this.updateMessage.bind(this);
@@ -81,19 +92,22 @@ export default class ChatRoom extends Component {
           <ul>
             {this.state.messages && this.state.messages.map(message =>
               (
-                <Message key={message.id}>{message.text}</Message>
+                <div>
+                  <Message key={message.id}>{message.text}</Message>
+                  <br />
+                </div>
               ))}
           </ul>
-          <div>
-            <Input
-              onKeyDown={(event) => {
-                if (event.keyCode === 13) {
-                  this.submitMessage();
-                }
-              }} onChange={this.updateMessage} type="text" placeholder="Message"/>
-            <Button onClick={this.submitMessage}>Send</Button>
-          </div>
         </ChatContainer>
+        <InputWrapper>
+          <Input
+            onKeyDown={(event) => {
+              if (event.keyCode === 13) {
+                this.submitMessage();
+              }
+            }} onChange={this.updateMessage} type="text" placeholder="Message"
+          />
+        </InputWrapper>
       </Container>
     );
   }
