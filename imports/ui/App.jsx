@@ -27,21 +27,21 @@ const Page = styled.div`
 `;
 
 const PageWithBackground = styled(Page)`
-  background: url('./bg.jpg') no-repeat center center;
+  background: rgba(195,47,52,0.8);
    -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-`
+`;
 
 const Title = styled.h1`
-  font-size: 3em;
+  font-size: 4em;
   margin: 0px;
   text-align: center;
 `;
 
 const SubTitle = styled(Title)`
-  font-size: 1em;
+  font-size: 2em;
 `;
 
 const Wrapper = styled.section`
@@ -60,10 +60,15 @@ export default function App() {
       <PageWithBackground>
         <Navigation />
         <Wrapper>
-          <Title>Hi, I'm Trevor</Title>
-          <SubTitle>This is my portfolio website</SubTitle>
+          <Title>Sungmin Park</Title>
+          <SubTitle>Software Engineer</SubTitle>
         </Wrapper>
       </PageWithBackground>
+      <Page>
+        <Wrapper>
+          <embed src="resume.pdf" width="100%" height="100%" type="application/pdf" />
+        </Wrapper>
+      </Page>
       <Page id="contacts">
         <Wrapper>
           <Chatroom />
